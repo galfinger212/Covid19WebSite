@@ -1,9 +1,10 @@
 
-
+<select id="countries"  (change)="selectChanged($event.target.value )" >
+  <label>Choose a Country:</label>
+</select>
 <figure class="highcharts-figure">
+  
   <div>
-    <input type="text">
-    <label>Type Country here:</label>
   </div>
     <div id="container"></div>
     <p class="highcharts-description">
