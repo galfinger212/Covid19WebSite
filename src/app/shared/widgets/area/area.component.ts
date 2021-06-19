@@ -22,7 +22,7 @@ Accessibility(Highcharts);
 })
 
 export class AreaComponent implements OnInit {
-
+  countries:Map<string,string>;
   chartOptions: {};
   Highcharts = Highcharts;
   xData: any;
@@ -31,7 +31,8 @@ export class AreaComponent implements OnInit {
   country: string;
   TimeChartData: any;
   countrySelected: string = "israel";
-  constructor(private dayService: DayOneAllStatusService, private destinationService: DestinationsService) {
+  constructor(private dayService: DayOneAllStatusService) {
+    this.countries = new Map<string,string>();
   }
   sleep = (milliseconds) => {
     const date = Date.now();
@@ -43,8 +44,8 @@ export class AreaComponent implements OnInit {
   async selectChanged(selectedCountry) {
     let div = document.getElementById('container');
     this.removeAllChild(div)
-    console.log(selectedCountry);
     this.countrySelected = selectedCountry;
+    console.log(this.countrySelected);
     this.ngOnInit();
   }
   removeAllChild(parent) {
@@ -56,21 +57,25 @@ export class AreaComponent implements OnInit {
     console.log("in init");
 
     return new Promise(async (res, rej) => {
-      let dataDeathes, dataCases, dataRecovering, dateData, destinationData;
-      await this.destinationService.GetAllcountriesEnglish().then((array) => {
-        destinationData = array;
-
+      let dataDeathes, dataCases, dataRecovering, dateData;
+      await this.dayService.GetAllCountries().then((array) => {
+        this.countries = array;
       })
-      let select = document.getElementById("countries");
-      for (let index = 0; index < destinationData.length; index++) {
-        const country = destinationData[index];
-        let option = document.createElement('option');
-        option.value = country;
-        option.innerText = country;
-        //option.onchange = 
-        select.appendChild(option);
 
+      //set options
+      let select = document.getElementById("countries");
+      let options:HTMLOptionElement[] = [];
+      for (let [key,value] of this.countries){       
+        let option = document.createElement('option');
+        option.innerText = key;
+        option.value = value;       
+        options.push(option);      
       }
+
+      // sorting the options alphabetically
+       options.sort((a,b) => a.innerText.localeCompare(b.innerText));
+       options.forEach(o => select.appendChild(o));
+   
       await this.dayService.GetByCountryDeathsAsync(this.countrySelected).then((array) => {
         dataDeathes = this.dayService.GetDataPerDay(array);
       })

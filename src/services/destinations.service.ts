@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { allDataDestinations } from 'src/models/allDataDestination';
+import { VerifiedCountry } from 'src/models/country';
 import { destinationConfirmation } from 'src/models/destinationConfirmation';
 import { URL } from '../models/DataEnum';
 
@@ -9,8 +10,10 @@ import { URL } from '../models/DataEnum';
 })
 export class DestinationsService {
   destinationConfirmationData: destinationConfirmation[] = [];
-
-  constructor(private httpClient: HttpClient) { }
+ 
+  constructor(private httpClient: HttpClient) { 
+   
+  }
 
 
   private GetData(GetDataProperty: { (): any[] }): Promise<any[]> {
@@ -21,6 +24,8 @@ export class DestinationsService {
       }, error => rej(error))
     });
   }
+ 
+
   GetAllcountriesEnglish(): any {
     return new Promise((res, rej) => {
       this.httpClient.get<any>(URL.allCountries).subscribe(data => {
