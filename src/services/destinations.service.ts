@@ -9,17 +9,18 @@ import { URL } from '../models/DataEnum';
   providedIn: 'root'
 })
 export class DestinationsService {
-  destinationConfirmationData: destinationConfirmation[] = [];
+  destinationConfirmationArray: destinationConfirmation[] = [];
+  countries: string[] = [];
  
   constructor(private httpClient: HttpClient) { 
    
   }
 
 
-  private GetData(GetDataProperty: { (): any[] }): Promise<any[]> {
+  private GetData(GetDataProperty: { (): any[] }): Promise<any> {
     return new Promise((res, rej) => {
       this.httpClient.get<allDataDestinations>(URL.Destinations).subscribe(data => {
-        this.destinationConfirmationData = data.result.records;
+        this.destinationConfirmationArray = data.result.records;
         res(GetDataProperty());
       }, error => rej(error))
     });
@@ -34,8 +35,13 @@ export class DestinationsService {
       })
     });
   }
-  filterByDestination(destination: string): Promise<destinationConfirmation[]> {
-    return this.GetData(() => this.destinationConfirmationData.filter(d => d.destination.toString().includes(destination)));
+
+  GetAllCountries(): Promise<string[]> {
+    return this.GetData(() => this.destinationConfirmationArray.map(d => d.destination));
+  }
+
+  filterByDestination(destination: string): Promise<destinationConfirmation> {
+    return this.GetData(() => this.destinationConfirmationArray.filter(d => d.destination.toString().includes(destination)));
   }
 
   filterByStatus(isGreen: boolean): Promise<destinationConfirmation[]> {
@@ -43,12 +49,12 @@ export class DestinationsService {
   }
 
   GetAllcountries(): Promise<string[]> {
-    return this.GetData(() => this.destinationConfirmationData.map(d => d.destination));
+    return this.GetData(() => this.destinationConfirmationArray.map(d => d.destination));
   }
 
 
   getIsGreen(isGreen: boolean): destinationConfirmation[] {
-    let c = this.destinationConfirmationData.filter(d => {
+    let c = this.destinationConfirmationArray.filter(d => {
       var isRed = d.country_status == "אדום";
       return isGreen == true ? !isRed : isRed;
     });
