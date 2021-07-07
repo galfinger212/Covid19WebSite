@@ -3,4 +3,5 @@ export class URL{
  static DayOneAllStatus:string = 'https://api.covid19api.com/dayone/country/';
  static WorldTotal:string = 'https://api.covid19api.com/world/total';
  static allCountries:string =   'https://restcountries.eu/rest/v2/all';
+ static Countries:string = 'https://api.covid19api.com/countries';
 }

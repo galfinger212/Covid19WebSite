@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { AreaComponent } from './widgets/area/area.component';
+import { FlightConfirmationComponent } from './widgets/FlightConfirmation/flight-confirmation/flight-confirmation.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { AreaComponent } from './widgets/area/area.component';
     HeaderComponent,
     SideBarComponent,
     AreaComponent,
+    FlightConfirmationComponent,
     
   ],
   imports: [
@@ -46,13 +49,16 @@ import { AreaComponent } from './widgets/area/area.component';
     HttpClientModule,
     MatPaginatorModule,
     MatTableModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    MatCardModule
   ],
   exports:[
     HeaderComponent,
     FooterComponent,
     SideBarComponent,
-    AreaComponent
+    AreaComponent,
+    FlightConfirmationComponent,
+    MatCardModule
   ]
 })
 export class SharedModule { }

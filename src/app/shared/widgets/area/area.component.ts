@@ -13,6 +13,7 @@ Exporting(Highcharts);
 const ExportData = require('highcharts/modules/export-data');
 ExportData(Highcharts);
 
+ 
 const Accessibility = require('highcharts/modules/accessibility');
 Accessibility(Highcharts);
 @Component({
@@ -20,9 +21,9 @@ Accessibility(Highcharts);
   templateUrl: './area.component.html',
   styleUrls: ['./area.component.scss']
 })
-
 export class AreaComponent implements OnInit {
-
+  date = 0;
+  countriesDictionary:Map<string,string>;
   chartOptions: {};
   Highcharts = Highcharts;
   xData: any;
@@ -31,7 +32,8 @@ export class AreaComponent implements OnInit {
   country: string;
   TimeChartData: any;
   countrySelected: string = "israel";
-  constructor(private dayService: DayOneAllStatusService, private destinationService: DestinationsService) {
+  constructor(private dayService: DayOneAllStatusService) {
+    this.countriesDictionary = new Map<string,string>();
   }
   sleep = (milliseconds) => {
     const date = Date.now();
@@ -43,8 +45,8 @@ export class AreaComponent implements OnInit {
   async selectChanged(selectedCountry) {
     let div = document.getElementById('container');
     this.removeAllChild(div)
-    console.log(selectedCountry);
     this.countrySelected = selectedCountry;
+    console.log(this.countrySelected);
     this.ngOnInit();
   }
   removeAllChild(parent) {
@@ -56,21 +58,25 @@ export class AreaComponent implements OnInit {
     console.log("in init");
 
     return new Promise(async (res, rej) => {
-      let dataDeathes, dataCases, dataRecovering, dateData, destinationData;
-      await this.destinationService.GetAllcountriesEnglish().then((array) => {
-        destinationData = array;
-
+      let dataDeathes, dataCases, dataRecovering, dateData;
+      await this.dayService.GetAllCountries().then((array) => {
+        this.countriesDictionary = array;
       })
-      let select = document.getElementById("countries");
-      for (let index = 0; index < destinationData.length; index++) {
-        const country = destinationData[index];
-        let option = document.createElement('option');
-        option.value = country;
-        option.innerText = country;
-        //option.onchange = 
-        select.appendChild(option);
 
+      //set options
+      let select = document.getElementById("countries");
+      let options:HTMLOptionElement[] = [];
+      for (let [key,value] of this.countriesDictionary){       
+        let option = document.createElement('option');
+        option.innerText = key;
+        option.value = value;       
+        options.push(option);      
       }
+
+      // sorting the options alphabetically
+       options.sort((a,b) => a.innerText.localeCompare(b.innerText));
+       options.forEach(o => select.appendChild(o));
+   
       await this.dayService.GetByCountryDeathsAsync(this.countrySelected).then((array) => {
         dataDeathes = this.dayService.GetDataPerDay(array);
       })
@@ -119,6 +125,7 @@ export class AreaComponent implements OnInit {
     await this.InitData().then((result) => {
       this.activity = result;
     });
+
     ['mousemove', 'touchmove', 'touchstart'].forEach(function (eventType) {
       document.getElementById('container').addEventListener(
         eventType,
@@ -131,11 +138,20 @@ export class AreaComponent implements OnInit {
 
           for (i = 0; i < Highcharts.charts.length; i = i + 1) {
             chart = Highcharts.charts[i];
+           
 
             // Find coordinates within the chart
             event = chart.pointer.normalize(e);
             // Get the hovered point
             point = chart.series[0].searchPoint(event, true);
+           if(point !== undefined){
+            console.log(point.category);
+            this.date = point.category;
+          //   this.$date.subscribe = point.category;
+          //   this.date.subscribe(() => point.category)
+          } 
+             
+            
             if (point) {
               point.highlight(e);
             }
@@ -143,9 +159,12 @@ export class AreaComponent implements OnInit {
         }
       );
     });
+
+
     function syncExtremes(e) {
       var thisChart = this.chart;
-
+      
+       
       if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
         Highcharts.each(Highcharts.charts, function (chart) {
           if (chart !== thisChart) {
@@ -168,6 +187,7 @@ export class AreaComponent implements OnInit {
     Highcharts.Point.prototype.select = function (event) {
       event = this.series.chart.pointer.normalize(event);
       this.onMouseOver(); // Show the hover marker
+      
       this.series.chart.tooltip.refresh(this); // Show the tooltip
       this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
     };
@@ -177,6 +197,8 @@ export class AreaComponent implements OnInit {
       this.activity.datasets.forEach(function (dataset, i) {
 
         dataset.data = Highcharts.map(dataset.data, function (val, j) {
+         
+          
           return [that.xData[j], val];
         });
 
