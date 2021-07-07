@@ -1,0 +1,32 @@
+<div>
+
+
+    <select id="countries" (change)="selectChanged($event.target.value )">
+        <label>Choose a Country:</label>
+    </select>
+    <div class="cardRapper">
+
+        <div class="mat">
+
+            <mat-card [style.background-color]="getBackgroundColor()">
+                <mat-card-title>
+                    {{destinationConfirmation ? destinationConfirmation[0].destination : null}}
+                </mat-card-title>
+
+
+                <mat-card-subtitle>{{destinationConfirmation ? destinationConfirmation[0].country_status : null}}
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <div
+                        [innerHTML]="destinationConfirmation ? destinationConfirmation[0].guidance.replace('<a','<a target=blank') : null">
+                    </div>
+                    <div [innerHTML]="destinationConfirmation ? destinationConfirmation[0].image : null"></div>
+                    <div
+                        [innerHTML]="destinationConfirmation ? destinationConfirmation[0].more_info.replace('<a','<a target=blank') : null">
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
