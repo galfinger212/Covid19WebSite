@@ -1,6 +1,14 @@
-<div>
-    <div>
-        <app-area></app-area>
-        <!-- <app-flight-confirmation></app-flight-confirmation> -->
-    </div>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <mat-card fxFlex="80">
+        <mat-card-content>
+            <app-area [(date)]="currentDateParrent"></app-area>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    <mat-card  fxFlex="20">
+        <app-details style="top: 20px;" [currentDate]="currentDateParrent"></app-details>
+    </mat-card>
 </div>

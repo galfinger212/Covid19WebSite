@@ -18,6 +18,8 @@ import { MatTableModule } from '@angular/material/table';
 import { AreaComponent } from './widgets/area/area.component';
 import { FlightConfirmationComponent } from './widgets/FlightConfirmation/flight-confirmation/flight-confirmation.component';
 import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { DetailsComponent } from './widgets/details/details.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { MatCardModule } from '@angular/material/card';
     SideBarComponent,
     AreaComponent,
     FlightConfirmationComponent,
+    DetailsComponent,
     
   ],
   imports: [
@@ -50,7 +53,8 @@ import { MatCardModule } from '@angular/material/card';
     MatPaginatorModule,
     MatTableModule,
     HighchartsChartModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   exports:[
     HeaderComponent,
@@ -58,7 +62,9 @@ import { MatCardModule } from '@angular/material/card';
     SideBarComponent,
     AreaComponent,
     FlightConfirmationComponent,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
+    DetailsComponent
   ]
 })
 export class SharedModule { }
