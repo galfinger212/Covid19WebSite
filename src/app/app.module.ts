@@ -12,13 +12,18 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { FlightStatusComponent } from './modules/flight-status/flight-status.component';
+=======
 import {MatGridListModule} from '@angular/material/grid-list';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    FlightStatusComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,10 +16,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { AreaComponent } from './widgets/area/area.component';
-import { FlightConfirmationComponent } from './widgets/FlightConfirmation/flight-confirmation/flight-confirmation.component';
 import { MatCardModule } from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DetailsComponent } from './widgets/details/details.component';
+import { FlightStatusComponent } from './modules/flight-status/flight-status.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +27,13 @@ import { DetailsComponent } from './widgets/details/details.component';
     HeaderComponent,
     SideBarComponent,
     AreaComponent,
-    FlightConfirmationComponent,
+    FlightStatusComponent,
+
+    
+
+   
     DetailsComponent,
+
     
   ],
   imports: [
@@ -61,10 +66,14 @@ import { DetailsComponent } from './widgets/details/details.component';
     FooterComponent,
     SideBarComponent,
     AreaComponent,
-    FlightConfirmationComponent,
+
+    MatCardModule
+
+    
     MatCardModule,
     MatGridListModule,
     DetailsComponent
+
   ]
 })
 export class SharedModule { }
