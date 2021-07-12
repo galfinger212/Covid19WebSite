@@ -17,14 +17,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { AreaComponent } from './widgets/area/area.component';
 import { MatCardModule } from '@angular/material/card';
-
+import {MatGridListModule} from '@angular/material/grid-list';
+import { DetailsComponent } from './widgets/details/details.component';
+import  {} from '../modules/flight-status/flight-status.component';
 @NgModule({
   declarations: [
     FooterComponent,
     HeaderComponent,
     SideBarComponent,
     AreaComponent,
-    
+    DetailsComponent,
     
   ],
   imports: [
@@ -49,14 +51,17 @@ import { MatCardModule } from '@angular/material/card';
     MatPaginatorModule,
     MatTableModule,
     HighchartsChartModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   exports:[
     HeaderComponent,
     FooterComponent,
     SideBarComponent,
     AreaComponent,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
+    DetailsComponent
   ]
 })
 export class SharedModule { }

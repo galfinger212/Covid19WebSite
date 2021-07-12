@@ -36,9 +36,13 @@ export class DestinationsService {
     });
   }
 
-  GetAllCountries(): Promise<string[]> {
+  GetAllCountriesName(): Promise<string[]> {
     return this.GetData(() => this.destinationConfirmationArray.map(d => d.destination));
   }
+
+  GetAllCountries(): Promise<destinationConfirmation[]> {
+    return this.GetData(() => this.destinationConfirmationArray);
+  }  
 
   filterByDestination(destination: string): Promise<destinationConfirmation> {
     return this.GetData(() => this.destinationConfirmationArray.filter(d => d.destination.toString().includes(destination)));
@@ -47,11 +51,6 @@ export class DestinationsService {
   filterByStatus(isGreen: boolean): Promise<destinationConfirmation[]> {
     return this.GetData(() => this.getIsGreen(isGreen));
   }
-
-  GetAllcountries(): Promise<string[]> {
-    return this.GetData(() => this.destinationConfirmationArray.map(d => d.destination));
-  }
-
 
   getIsGreen(isGreen: boolean): destinationConfirmation[] {
     let c = this.destinationConfirmationArray.filter(d => {

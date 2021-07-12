@@ -1,32 +1,31 @@
+<input type="text" id="countriesSelect" list="countries" (change)="selectChanged($event.target.value )">
+<datalist id="countries">  
+</datalist> 
 <div>
+    <table  *ngFor="let country of this.countries">     
+        <tr>
+           
 
-
-    <select id="countries" (change)="selectChanged($event.target.value )">
-        <label>Choose a Country:</label>
-    </select>
-    <div class="cardRapper">
-
-        <div class="mat">
-
-            <mat-card [style.background-color]="getBackgroundColor()">
-                <mat-card-title>
-                    {{destinationConfirmation ? destinationConfirmation[0].destination : null}}
-                </mat-card-title>
-
-
-                <mat-card-subtitle>{{destinationConfirmation ? destinationConfirmation[0].country_status : null}}
-                </mat-card-subtitle>
-                <mat-card-content>
-                    <div
-                        [innerHTML]="destinationConfirmation ? destinationConfirmation[0].guidance.replace('<a','<a target=blank') : null">
-                    </div>
-                    <div [innerHTML]="destinationConfirmation ? destinationConfirmation[0].image : null"></div>
-                    <div
-                        [innerHTML]="destinationConfirmation ? destinationConfirmation[0].more_info.replace('<a','<a target=blank') : null">
-                    </div>
-
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </div>
+                <div class="cardRapper">
+        
+                    <mat-card class="cardRapper" [style.background-color]="getBackgroundColor(country)">
+                        <mat-card-title>
+                           <div class="title"> {{country ? country.destination : null}}</div>
+                        </mat-card-title>              
+                        <mat-card-subtitle>   <h1>{{country ? country.country_status : null}}</h1> </mat-card-subtitle>                      
+                        <mat-card-content>
+                            <h2
+                                [innerHTML]="country ? country.guidance.replace('<a','<a target=blank') : null">
+                            </h2>
+                            <h2
+                            [innerHTML]="country ? country.more_info.replace('<a','<a target=blank') : null">
+                            </h2>
+                            <div [innerHTML]="country ? country.image : null"></div>
+        
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+          
+        </tr>
+      </table>
 </div>
