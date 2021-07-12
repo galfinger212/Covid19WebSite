@@ -19,14 +19,29 @@ import { AreaComponent } from './widgets/area/area.component';
 import { MatCardModule } from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DetailsComponent } from './widgets/details/details.component';
+<<<<<<< HEAD
 import  {} from '../modules/flight-status/flight-status.component';
+=======
+import { FlightStatusComponent } from './modules/flight-status/flight-status.component';
+
+>>>>>>> 3e522e5340d3f1832b52f8b8c89034e9afb7222c
 @NgModule({
   declarations: [
     FooterComponent,
     HeaderComponent,
     SideBarComponent,
     AreaComponent,
+<<<<<<< HEAD
     DetailsComponent,
+=======
+    FlightStatusComponent,
+
+    
+
+   
+    DetailsComponent,
+
+>>>>>>> 3e522e5340d3f1832b52f8b8c89034e9afb7222c
     
   ],
   imports: [
@@ -59,9 +74,20 @@ import  {} from '../modules/flight-status/flight-status.component';
     FooterComponent,
     SideBarComponent,
     AreaComponent,
+<<<<<<< HEAD
     MatCardModule,
     MatGridListModule,
     DetailsComponent
+=======
+
+    MatCardModule
+
+    
+    MatCardModule,
+    MatGridListModule,
+    DetailsComponent
+
+>>>>>>> 3e522e5340d3f1832b52f8b8c89034e9afb7222c
   ]
 })
 export class SharedModule { }

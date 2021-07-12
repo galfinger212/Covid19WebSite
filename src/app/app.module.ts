@@ -14,7 +14,13 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlightStatusComponent } from './modules/flight-status/flight-status.component';
+<<<<<<< HEAD
 import { MatGridListModule } from '@angular/material/grid-list';
+=======
+=======
+import {MatGridListModule} from '@angular/material/grid-list';
+
+>>>>>>> 3e522e5340d3f1832b52f8b8c89034e9afb7222c
 
 
 
